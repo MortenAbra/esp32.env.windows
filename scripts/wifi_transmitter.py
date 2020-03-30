@@ -21,7 +21,7 @@ def post(data, url):
     s = socket.socket()
     s.connect(address)
     
-    header = 'POST /%s HTTP/1.0\r\nHost: %s'%(path, host)
+    header = 'POST /{} HTTP/1.0\r\nHost: {}'.format(path, host)
     payload = ''
 
     s.send(bytes('%s%s'%(header,payload), 'utf-8'))

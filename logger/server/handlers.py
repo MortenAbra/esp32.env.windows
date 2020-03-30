@@ -18,7 +18,7 @@ class Handlers:
 
         # read incoming bytes
         # structure is: timestamp, lux, temp, i-> 123456789,34,23,0
-        payload = await request.read()
+        payload = (await request.read()).decode('utf-8')
 
         # TODO: process payload such that: str(time_send,lux,temp,iteration)
         processed_payload = payload.decode('utf-8').split(',')
@@ -32,16 +32,15 @@ class Handlers:
 
         # read incoming bytes
         # structure is: timestamp, lux, temp, i-> 123456789,34,23,0
-        payload = await request.read()
+        payload = (await request.read()).decode('utf-8')
 
         # TODO: process payload such that: str(time_send,lux,temp,iteration)
-        processed_payload = payload.decode('utf-8').split(',')
+        processed_payload = str(payload.split(','))   
 
         # just use the helper method
         self.store(processed_payload, str(round(time.time())))
 
         return web.Response(text='')
-
         
     def store(self, payload, time_received):
 

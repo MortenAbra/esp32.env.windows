@@ -128,7 +128,7 @@ if __name__ == '__main__':
                 while True:
                     data = f.read(1024)
                     if not data: break
-                    write_to_file(connection, ["outfile=open('{}',mode='wb')".format(path3), "outfile.write({})".format(data), "outfile.close()"])
+                    write_to_file(connection, ["outfile=open('{}',mode='wb',encoding='utf-8',errors='ignore')".format(path3), "outfile.write({})".format(data), "outfile.close()"])
             os.remove(path2)
     connection.write([3,3])
     receive(connection)
