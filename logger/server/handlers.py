@@ -21,10 +21,12 @@ class Handlers:
         payload = await request.read()
 
         # TODO: process payload such that: str(time_send,lux,temp,iteration)
-        processed_payload = payload   
+        processed_payload = payload.decode('utf-8').split(',')
 
         # just use the helper method
         self.store(processed_payload, str(round(time.time())))
+
+        return web.Response(text='')
     
     async def store_public(self, request):
 
@@ -33,13 +35,17 @@ class Handlers:
         payload = await request.read()
 
         # TODO: process payload such that: str(time_send,lux,temp,iteration)
-        processed_payload = payload   
+        processed_payload = payload.decode('utf-8').split(',')
 
         # just use the helper method
         self.store(processed_payload, str(round(time.time())))
 
+        return web.Response(text='')
+
         
     def store(self, payload, time_received):
+
+        print('Payload recieved at: ', time_received)
 
         # open file as append
         with open('log.txt', 'a') as f:
